@@ -37,7 +37,8 @@ export class AppComponent {
         tickSizeInner: 0,
         tickSizeOuter: 0,
         yAxixText: "Y AXIS TEXT",
-        color : ["#E22C43", "#0073D0"]
+        color : ["#E22C43", "#0073D0"],
+        timeFormat: "%y"
       };
 
       function configure(configuration) {
@@ -50,7 +51,7 @@ export class AppComponent {
       configure(configuration);
 
       /* Format Data */
-      var parseDate = d3.timeParse("%b");
+      var parseDate = d3.timeParse(config.timeFormat);
       data.forEach(function(d) {
         d.values.forEach(function(d) {
           d.date = parseDate(d.date);
@@ -209,7 +210,7 @@ export class AppComponent {
       var xAxis = d3
         .axisBottom(xScale)
         .ticks(config.xAxisTicks)
-        .tickFormat(d3.timeFormat("%b"))
+        .tickFormat(d3.timeFormat(config.timeFormat))
         .tickSizeOuter(config.tickSizeOuter)
         .tickSizeInner(config.tickSizeInner);
       var yAxis = d3.axisLeft(yScale).ticks(config.yAxisTicks);
@@ -297,7 +298,8 @@ export class AppComponent {
         xAxisTicks: 12,
         yAxisTicks: 0,
         yAxixText: "Number of Post",
-        color : ["#E22C43", "#0073D0"]
+        color : ["#E22C43", "#0073D0"],
+        timeFormat: "%b"
       },
       data
     );
