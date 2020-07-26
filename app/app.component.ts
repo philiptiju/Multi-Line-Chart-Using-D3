@@ -117,7 +117,10 @@ export class AppComponent {
           svg.select(".title-text").remove();
         })
         .append("path")
-        .attr("class", "line")
+        //.attr("class", "line")
+        .attr("class", function(d, i) {
+          return "line line" + i;
+        })
         .attr("d", function(d) {
           return line(d.values.filter(x => !isNaN(x.price)));
         })
@@ -253,6 +256,19 @@ export class AppComponent {
       function make_y_gridlines() {
         return d3.axisLeft(yScale).ticks(5);
       }
+
+      for (var i=0; i< data.length; i++) {
+          let totalLength = svg.select('.line' + i).node().getTotalLength();
+            svg.select('.line' + i)
+          .attr("stroke-dasharray", totalLength + " " + totalLength)
+          .attr("stroke-dashoffset", totalLength)
+          .transition() // Call Transition Method
+          .duration(4000) // Set Duration timing (ms)
+          .attr("stroke-dashoffset", 0);
+      }
+
+     
+
     };
 
     var data = [
